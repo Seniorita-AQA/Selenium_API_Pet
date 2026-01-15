@@ -4,13 +4,13 @@ from settings import VALID_EMAIL, VALID_PASS
 
 
 class Pets:
-    """API библиотека к сайту http://34.141.58.52:8080/#/"""
+    """API library to the site http://34.141.58.52:8080/#/"""
 
     def __init__(self):
         self.base_url = 'http://34.141.58.52:8000/'
 
     def get_token(self) -> json:
-        """Запрос к Swagger сайта для получения уникального токена пользователя по указанным email и password"""
+        """Request to the site's Swagger to obtain a unique user token using the specified email and password"""
         data = {'email': VALID_EMAIL,
                 'password': VALID_PASS}
         res = requests.post(self.base_url + 'login', data=json.dumps(data))
@@ -20,7 +20,7 @@ class Pets:
         return my_token, status, my_id
 
     def get_list_users(self):
-        """Получение списка пользователей"""
+        """Getting a list of users"""
         my_token = Pets().get_token()[0]
         headers = {'Authorization': f'Bearer {my_token}'}
         res = requests.get(self.base_url + 'users', headers=headers)
@@ -29,7 +29,7 @@ class Pets:
         return status, amount
 
     def create_pet(self):
-        """Создание питомца"""
+        """Pet creation"""
         my_token = Pets().get_token()[0]
         my_id = Pets().get_token()[2]
         headers = {'Authorization': f'Bearer {my_token}'}
@@ -41,7 +41,7 @@ class Pets:
         return pet_id, status
 
     def get_pet_photo(self):
-        """Загрузка фото питомца"""
+        """Pet`s photo uploading"""
         my_token = Pets().get_token()[0]
         pet_id = Pets().create_pet()[0]
         headers = {'Authorization': f'Bearer {my_token}'}
@@ -54,7 +54,7 @@ class Pets:
         return status, link
 
     def update_pet_name(self):
-        """Обновить имя питомца"""
+        """Pet`s name updating"""
         my_token = Pets().get_token()[0]
         my_id = Pets().get_token()[2]
         pet_id = Pets().create_pet()[0]
@@ -67,7 +67,7 @@ class Pets:
         return pet_id, status
 
     def delete_pet(self):
-        """Удаление питомца"""
+        """Delete the pet"""
         my_token = Pets().get_token()[0]
         pet_id = Pets().create_pet()[0]
         headers = {'Authorization': f'Bearer {my_token}'}
@@ -77,7 +77,7 @@ class Pets:
         return status
 
     def add_like(self):
-        """Поставить лайк питомцу"""
+        """Set a like to the pet"""
         my_token = Pets().get_token()[0]
         pet_id = Pets().create_pet()[0]
         headers = {'Authorization': f'Bearer {my_token}'}
@@ -87,7 +87,7 @@ class Pets:
         return status
 
     def receive_pets_list(self):
-        """Получить список моих питомцев"""
+        """Get a list of my pets"""
         my_token = Pets().get_token()[0]
         my_id = Pets().get_token()[2]
         headers = {'Authorization': f'Bearer {my_token}'}
@@ -97,7 +97,7 @@ class Pets:
         return status, my_id
 
     def add_comment(self):
-        """Добавление комментария созданному питомцу"""
+        """Adding a comment to a created pet"""
         my_token = Pets().get_token()[0]
         pet_id = Pets().create_pet()[0]
         headers = {'Authorization': f'Bearer {my_token}'}
